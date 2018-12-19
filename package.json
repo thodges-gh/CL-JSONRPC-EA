@@ -1,0 +1,14 @@
+{
+  "name": "EthJsonRpc",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Thomas Hodges (thomas@smartcontract.com",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.87.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
+}
