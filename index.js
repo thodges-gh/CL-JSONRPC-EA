@@ -1,7 +1,7 @@
 let request = require('request');
 
 const createRequest = (input, callback) => {
-  const url = process.env.RPC_URL || "http://localhost:8545";
+  const url = input.data.url || process.env.RPC_URL || "http://localhost:8545";
   const method = input.data.method || "";
   const params = input.data.params || [];
   const headerObj = {

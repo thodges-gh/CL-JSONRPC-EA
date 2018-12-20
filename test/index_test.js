@@ -20,7 +20,6 @@ describe('Adapter', () => {
 
     it('returns error to the node', (done) => {
       createRequest(req, (statusCode, data) => {
-        assert.equal(statusCode, 200);
         assert.equal(data.jobRunID, jobID);
         assert.equal(data.status, "errored");
         done();
@@ -34,6 +33,44 @@ describe('Adapter', () => {
       id: jobID,
       data: {
         method: "eth_syncing"
+      }
+    };
+
+    it('returns data to the node', (done) => {
+      createRequest(req, (statusCode, data) => {
+        assert.equal(statusCode, 200);
+        assert.equal(data.jobRunID, jobID);
+        assert.isNotEmpty(data.data);
+        done();
+      });
+    });
+  });
+
+  context('eth_gasPrice', () => {
+
+    const req = {
+      id: jobID,
+      data: {
+        method: "eth_gasPrice"
+      }
+    };
+
+    it('returns data to the node', (done) => {
+      createRequest(req, (statusCode, data) => {
+        assert.equal(statusCode, 200);
+        assert.equal(data.jobRunID, jobID);
+        assert.isNotEmpty(data.data);
+        done();
+      });
+    });
+  });
+
+  context('eth_blockNumber', () => {
+
+    const req = {
+      id: jobID,
+      data: {
+        method: "eth_blockNumber"
       }
     };
 
@@ -87,6 +124,73 @@ describe('Adapter', () => {
     });
   });
 
+  context('eth_call', () => {
+
+    const req = {
+      id: jobID,
+      data: {
+        method: "eth_call",
+        params: [{
+          to: "0x51DE85B0cD5B3684865ECfEedfBAF12777cd0Ff8",
+          data: "0x8da5cb5b"
+        }, "latest"]
+      }
+    };
+
+    it('returns data to the node', (done) => {
+      createRequest(req, (statusCode, data) => {
+        assert.equal(statusCode, 200);
+        assert.equal(data.jobRunID, jobID);
+        assert.isNotEmpty(data.data);
+        done();
+      });
+    });
+  });
+
+  context('eth_getTransactionByHash', () => {
+
+    const req = {
+      id: jobID,
+      data: {
+        method: "eth_getTransactionByHash",
+        params: ["0xc0b989396d78277feb0a28de303652bc2c0b23f3f6fe76f67ff248ed481254f4"]
+      }
+    };
+
+    it('returns data to the node', (done) => {
+      createRequest(req, (statusCode, data) => {
+        assert.equal(statusCode, 200);
+        assert.equal(data.jobRunID, jobID);
+        assert.isNotEmpty(data.data);
+        done();
+      });
+    });
+  });
+
+  context('eth_getTransactionReceipt', () => {
+
+    const req = {
+      id: jobID,
+      data: {
+        method: "eth_getTransactionReceipt",
+        params: ["0xc0b989396d78277feb0a28de303652bc2c0b23f3f6fe76f67ff248ed481254f4"]
+      }
+    };
+
+    it('returns data to the node', (done) => {
+      createRequest(req, (statusCode, data) => {
+        assert.equal(statusCode, 200);
+        assert.equal(data.jobRunID, jobID);
+        assert.isNotEmpty(data.data);
+        done();
+      });
+    });
+  });
+
+  /**
+   * These functions only work with a connection to an unlocked client.
+   */
+
   context('eth_sign', () => {
 
     const req = {
@@ -98,7 +202,7 @@ describe('Adapter', () => {
       }
     };
 
-    it('returns data to the node', (done) => {
+    xit('returns data to the node', (done) => {
       createRequest(req, (statusCode, data) => {
         assert.equal(statusCode, 200);
         assert.equal(data.jobRunID, jobID);
@@ -121,7 +225,7 @@ describe('Adapter', () => {
       }
     };
 
-    it('returns data to the node', (done) => {
+    xit('returns data to the node', (done) => {
       createRequest(req, (statusCode, data) => {
         assert.equal(statusCode, 200);
         assert.equal(data.jobRunID, jobID);
