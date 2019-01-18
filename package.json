@@ -4,11 +4,25 @@
   "description": "",
   "author": "Thomas Hodges (thomas@smartcontract.com",
   "license": "MIT",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint .",
+    "lint:fix": "./node_modules/.bin/eslint . --fix",
+	"test:eth": "./node_modules/.bin/mocha test/eth_test.js",
+	"test:btc": "./node_modules/.bin/mocha test/btc_test.js",
+	"test:aion": "./node_modules/.bin/mocha test/aion_test.js",
+	"test:zilliqa": "./node_modules/.bin/mocha test/zilliqa_test.js"
+  },
   "dependencies": {
     "request": "^2.87.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "eslint": "^5.12.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "mocha": "^5.2.0"
   }
 }

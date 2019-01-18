@@ -1,9 +1,34 @@
-# Ethereum JSONRPC External Adapter for Chainlink
+# General JSONRPC External Adapter for Chainlink
 
-- Should work for any Ethereum-based blockchain
+- Should work for any JSON RPC supported endpoint (includes tests for a few major projects which support JSON RPC commands)
 - Supports AWS Lambda and GCP Functions
-- Can sign and send transactions if client is unlocked
+- Blockchain clients can sign and send transactions if wallet is unlocked
 - Takes optional connection to RPC endpoint (set via `RPC_URL` environment variable)
+- Supports basic authentication
+
+A JSON-RPC request is typically formatted like this:
+
+```JSON
+{
+	"jsonrpc": "2.0",
+	"method": "some_method",
+	"params": [
+		"some_param",
+		"another_param"
+	],
+	"id": 1
+}
+```
+
+What this adapter does is allow you to specify the `"method"` and `"params"` values in a Chainlink request and receive the result (format example below) back to the Chainlink node for further processing.
+
+```JSON
+{
+  "id":1,
+  "jsonrpc": "2.0",
+  "result": "some_result"
+}
+```
 
 ## Install
 
@@ -21,14 +46,40 @@ zip -r cl-jsonrpc.zip .
 
 Upload to AWS/GCP
 
-Set the `RPC_URL` environment variable to your server
+Set the `RPC_URL` environment variable to your client URL.
 
-## Test
+## Testing
 
-Install dependencies, then run
+Testing is dependent on the type of node you're connecting to. You can set a local environment variable `RPC_URL` to point to an RPC connection. Otherwise, the adapter will default to `"http://localhost:8545"`.
+
+RPC Address and Port Defaults:
+- Ethereum: http://localhost:8545
+- AION: http://localhost:8545
+- BTC: (bitcoind) http://localhost:8332 (btcd) http://localhost:8334
+- Zilliqa: http://localhost:4201
+
+For Ethereum and any Geth clone (should work with Parity as well):
 
 ```bash
-mocha
+npm run test:eth
+```
+
+For Bitcoin:
+
+```bash
+npm run test:btc
+```
+
+For AION:
+
+```bash
+npm run test:aion
+```
+
+For Zilliqa:
+
+```bash
+npm run test:zilliqa
 ```
 
 ## Install to GCP
@@ -38,8 +89,9 @@ mocha
 - Select a Storage Bucket to keep the zip in
 - Function to execute: gcpservice
 - Click More, Add variable
-  - NAME: RPC_URL
-  - VALUE: Replace_With_Something_Unique
+  - NAME: `RPC_URL`
+  - VALUE: `Replace_With_Something_Unique`
+- If Basic Authentication is in use, include variables for `BASIC_USERNAME` and `BASIC_PASSWORD`
 
 ## Install to AWS Lambda
 
@@ -53,6 +105,7 @@ mocha
 - Click Upload and select the `cl-jsonrpc.zip` file
 - Handler should remain index.handler
 - Add the environment variable:
-  - Key: RPC_URL
-  - Value: Replace_With_Something_Unique
+  - Key: `RPC_URL`
+  - Value: `Replace_With_Something_Unique`
+- If Basic Authentication is in use, include variables for `BASIC_USERNAME` and `BASIC_PASSWORD`
 - Save
