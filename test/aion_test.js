@@ -8,7 +8,6 @@ const createRequest = require("../index.js").createRequest;
 
 describe("AION client", () => {
     const jobID = "278c97ffadb54a5bbb93cfec5f7b5503";
-  
 
     context("Unrecognized method", () => {
 
@@ -42,7 +41,7 @@ describe("AION client", () => {
             createRequest(req, (statusCode, data) => {
                 assert.equal(statusCode, 200);
                 assert.equal(data.jobRunID, jobID);
-                assert.isNotEmpty(data.data);
+				        assert.isNotEmpty(data.data);
                 done();
             });
         });
@@ -99,7 +98,7 @@ describe("AION client", () => {
             createRequest(req, (statusCode, data) => {
                 assert.equal(statusCode, 200);
                 assert.equal(data.jobRunID, jobID);
-                assert.isNotEmpty(data.data);
+				        assert.isNotEmpty(data.data);
                 done();
             });
         });
@@ -144,5 +143,4 @@ describe("AION client", () => {
             });
         });
     });
-
 });

@@ -8,7 +8,6 @@ const createRequest = require("../index.js").createRequest;
 
 describe("Ethereum client", () => {
     const jobID = "278c97ffadb54a5bbb93cfec5f7b5503";
-  
 
     context("Unrecognized method", () => {
 
@@ -47,7 +46,7 @@ describe("Ethereum client", () => {
             });
         });
     });
-  
+
     context("eth_syncing", () => {
 
         const req = {
@@ -300,5 +299,4 @@ describe("Ethereum client", () => {
             });
         });
     });
-
 });

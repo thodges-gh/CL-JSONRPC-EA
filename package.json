@@ -2,18 +2,18 @@
   "name": "EthJsonRpc",
   "version": "1.0.0",
   "description": "",
-  "author": "Thomas Hodges (thomas@smartcontract.com",
+  "author": "Thomas Hodges (thomas@smartcontract.com)",
   "license": "MIT",
   "scripts": {
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
-	"test:eth": "./node_modules/.bin/mocha test/eth_test.js",
-	"test:btc": "./node_modules/.bin/mocha test/btc_test.js",
-	"test:aion": "./node_modules/.bin/mocha test/aion_test.js",
-	"test:zilliqa": "./node_modules/.bin/mocha test/zilliqa_test.js"
+    "test:eth": "./node_modules/.bin/mocha test/eth_test.js",
+    "test:btc": "./node_modules/.bin/mocha test/btc_test.js",
+    "test:aion": "./node_modules/.bin/mocha test/aion_test.js",
+    "test:zilliqa": "./node_modules/.bin/mocha test/zilliqa_test.js"
   },
   "dependencies": {
-    "request": "^2.87.0"
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",

@@ -8,7 +8,6 @@ const createRequest = require("../index.js").createRequest;
 
 describe("Zilliqa client", () => {
     const jobID = "278c97ffadb54a5bbb93cfec5f7b5503";
-  
 
     context("Unrecognized method", () => {
 

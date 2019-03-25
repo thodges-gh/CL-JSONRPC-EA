@@ -1,7 +1,7 @@
 const request = require("request");
 
 const createRequest = (input, callback) => {
-    const url = input.data.url || process.env.RPC_URL || "http://localhost:8545";
+    const url = process.env.RPC_URL || input.data.url || "http://localhost:8545";
     const method = input.data.method || "";
     const params = input.data.params;
     let dataQuery = {
@@ -14,10 +14,6 @@ const createRequest = (input, callback) => {
         url: url,
         headers: {
             "Content-Type": "application/json"
-        },
-        auth: {
-            user: process.env.BASIC_USERNAME,
-            pass: process.env.BASIC_PASSWORD
         },
         rejectUnauthorized: false,
         body: dataQuery,

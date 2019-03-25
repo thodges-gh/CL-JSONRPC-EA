@@ -4,7 +4,6 @@
 - Supports AWS Lambda and GCP Functions
 - Blockchain clients can sign and send transactions if wallet is unlocked
 - Takes optional connection to RPC endpoint (set via `RPC_URL` environment variable)
-- Supports basic authentication
 
 A JSON-RPC request is typically formatted like this:
 
@@ -91,7 +90,6 @@ npm run test:zilliqa
 - Click More, Add variable
   - NAME: `RPC_URL`
   - VALUE: `Replace_With_Something_Unique`
-- If Basic Authentication is in use, include variables for `BASIC_USERNAME` and `BASIC_PASSWORD`
 
 ## Install to AWS Lambda
 
@@ -107,5 +105,4 @@ npm run test:zilliqa
 - Add the environment variable:
   - Key: `RPC_URL`
   - Value: `Replace_With_Something_Unique`
-- If Basic Authentication is in use, include variables for `BASIC_USERNAME` and `BASIC_PASSWORD`
 - Save
