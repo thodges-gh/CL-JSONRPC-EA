@@ -29,6 +29,23 @@ What this adapter does is allow you to specify the `"method"` and `"params"` val
 }
 ```
 
+In Solidity, a Chainlink request can be made to an external chain for the balance of a given account with the following example:
+
+```javascript
+function getBalanceExternalChain(string _account)
+  public
+  onlyOwner
+{
+  Chainlink.Request memory req = newRequest(JOB_ID, this, this.fulfillRPCCall.selector);
+  req.add("method", "eth_getBalance");
+  string[] memory params = new string[](2);
+  path[0] = _account;
+  path[1] = "latest";
+  req.addStringArray("params", params);
+  chainlinkRequest(req, ORACLE_PAYMENT);
+}
+```
+
 ## Install
 
 Install dependencies
