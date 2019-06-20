@@ -7,83 +7,97 @@ const createRequest = require("../index.js").createRequest;
  */
 
 describe("Zilliqa client", () => {
-    const jobID = "278c97ffadb54a5bbb93cfec5f7b5503";
+  const jobID = "278c97ffadb54a5bbb93cfec5f7b5503";
 
-    context("Unrecognized method", () => {
+  context("Unrecognized method", () => {
+    const req = {
+      id: jobID,
+      data: {
+        method: "no_op"
+      }
+    };
 
-        const req = {
-            id: jobID,
-            data: {
-                method: "no_op"
-            }
-        };
-
-        it("returns error to the node", (done) => {
-            createRequest(req, (statusCode, data) => {
-                assert.equal(data.jobRunID, jobID);
-                assert.equal(data.status, "errored");
-                done();
-            });
-        });
+    it("returns error to the node", done => {
+      createRequest(req, (statusCode, data) => {
+        assert.equal(data.jobRunID, jobID);
+        assert.equal(data.status, "errored");
+        done();
+      });
     });
+  });
 
-    context("GetNetworkId", () => {
+  context("GetNetworkId", () => {
+    const req = {
+      id: jobID,
+      data: {
+        method: "GetNetworkId",
+        params: [""]
+      }
+    };
 
-        const req = {
-            id: jobID,
-            data: {
-                method: "GetNetworkId",
-                params: [""]
-            }
-        };
-
-        it("returns data to the node", (done) => {
-            createRequest(req, (statusCode, data) => {
-                assert.equal(statusCode, 200);
-                assert.equal(data.jobRunID, jobID);
-                assert.isNotEmpty(data.data);
-                done();
-            });
-        });
+    it("returns data to the node", done => {
+      createRequest(req, (statusCode, data) => {
+        assert.equal(statusCode, 200);
+        assert.equal(data.jobRunID, jobID);
+        assert.isNotEmpty(data.data);
+        done();
+      });
     });
+  });
 
-    context("GetBalance", () => {
+  context("GetBalance", () => {
+    const req = {
+      id: jobID,
+      data: {
+        method: "GetBalance",
+        params: ["05fE66887AC5B6465f5aEda85E0557A29Ab11936"]
+      }
+    };
 
-        const req = {
-            id: jobID,
-            data: {
-                method: "GetBalance",
-                params: ["cf8919e41231e78c0f0efd7e63ae07247e022b4f"]
-            }
-        };
-
-        it("returns data to the node", (done) => {
-            createRequest(req, (statusCode, data) => {
-                assert.equal(statusCode, 200);
-                assert.equal(data.jobRunID, jobID);
-                assert.isNotEmpty(data.data);
-                done();
-            });
-        });
+    it("Get balance should return some address balance", done => {
+      createRequest(req, (statusCode, data) => {
+        assert.equal(statusCode, 200);
+        assert.equal(data.jobRunID, jobID);
+        assert.isNotEmpty(data.data);
+        done();
+      });
     });
+  });
 
-    context("GetSmartContractState", () => {
+  context("GetBalance", () => {
+    const req = {
+      id: jobID,
+      data: {
+        method: "GetBalance",
+        params: ["05fE66887AC5B6465f5aEda85E0557A29Ab11937"]
+      }
+    };
 
-        const req = {
-            id: jobID,
-            data: {
-                method: "GetSmartContractState",
-                params: ["fe001824823b12b58708bf24edd94d8b5e1cfcf7"]
-            }
-        };
-
-        it("returns data to the node", (done) => {
-            createRequest(req, (statusCode, data) => {
-                assert.equal(statusCode, 200);
-                assert.equal(data.jobRunID, jobID);
-                assert.isNotEmpty(data.data);
-                done();
-            });
-        });
+    it("Get balance should return error as address is not created.", done => {
+      createRequest(req, (statusCode, data) => {
+        assert.equal(data.status, "errored");
+        assert.equal(data.jobRunID, jobID);
+        done();
+      });
     });
+  });
+
+  context("GetSmartContractState", () => {
+    const req = {
+      id: jobID,
+      data: {
+        method: "GetSmartContractState",
+        params: ["5865337a32F48a04F5B52507442f47FC558d9C2b"]
+      }
+    };
+
+    it("returns data to the node", done => {
+      createRequest(req, (statusCode, data) => {
+        assert.equal(statusCode, 200);
+        assert.equal(data.jobRunID, jobID);
+        assert.isNotEmpty(data.data);
+        done();
+      });
+    });
+  });
 });
